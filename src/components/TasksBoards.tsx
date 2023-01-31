@@ -8,6 +8,7 @@ import Task from './Task'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { setCurrentProjectId } from '../redux/projectsSlice'
+import AddTaskButton from './AddTaskButton'
 
 const TasksBoards: FC = () => {
   const projects = useSelector((state: RootState) => state.projects.projects)
@@ -40,11 +41,12 @@ const TasksBoards: FC = () => {
             key={t.id} 
             index={index} 
             status={sectionTitle}
-          />
+            />
         )
       })
     }
   }
+
 
   return (
     <div>
@@ -54,10 +56,10 @@ const TasksBoards: FC = () => {
             {renderTasks('Queue', queueTasks)}
           </Section>
           <Section title={'Development'}>
-          {renderTasks('Development', developmentTasks)}
+            {renderTasks('Development', developmentTasks)}
           </Section>
           <Section title={'Done'}>
-          {renderTasks('Done', doneTasks)}
+            {renderTasks('Done', doneTasks)}
           </Section>
         </Flex>
       </DndProvider>

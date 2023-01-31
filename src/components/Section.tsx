@@ -5,6 +5,7 @@ import { useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import { changeTaskStatus } from '../redux/projectsSlice';
 import { useParams } from 'react-router-dom';
+import AddTaskButton from './AddTaskButton';
 interface Props {
   title?: string,
   tasks?: object,
@@ -32,6 +33,7 @@ const Section = (props: Props) => {
       <Flex flexDirection='column'>
         <div>{props.title}</div>
         {props.children}
+        <AddTaskButton section={props.title}/>
       </Flex>
     </SectionWrapper>
   )
