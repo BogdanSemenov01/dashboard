@@ -113,6 +113,17 @@ export const projectsSlice = createSlice({
           p.tasks[statusTask].push(element)
         }
       })
+    },
+    deleteTask: (state, action) => {
+      state.projects.map((p:any) => {
+        if (p.id === state.currentProjectId) {
+          let section = selectSection(action.payload.section)
+          let index = p.tasks[section].findIndex((t:any) => t.id === action.payload.taskId)
+          if (index > -1) {
+            p.tasks[section].splice(index, 1)
+          }
+        }
+      })
     }
   },
 })
@@ -123,6 +134,7 @@ export const {
   setCurrentProjectId, 
   changeTaskStatus,
   createNewTask,
+  deleteTask
 } = projectsSlice.actions
 
 export default projectsSlice.reducer

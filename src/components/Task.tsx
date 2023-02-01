@@ -2,11 +2,15 @@ import React, { useRef } from 'react'
 import type { FC } from 'react'
 import { useDrag, useDrop } from 'react-dnd/dist/hooks';
 import styled from 'styled-components';
+import DeleteButton from './common/DeleteButton';
+import Flex from './styled/CommonStyledComponents';
 
 const StyledTask = styled.div`
   background-color: lightgray;
   width: 100%;
-  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export interface TaskProps {
@@ -39,6 +43,7 @@ const Task: FC<TaskProps> = (props) => {
     <>
       <StyledTask style={{opacity}} ref={drag}>
         {props.text}
+        <DeleteButton section={props.status} id={props.id}/>
       </StyledTask>
     </>
   )

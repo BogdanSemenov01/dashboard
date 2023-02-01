@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { createNewTask } from '../redux/projectsSlice'
+import { createNewTask } from '../../redux/projectsSlice'
 
 const AddTaskButton = (props: any) => {
 
@@ -18,6 +18,10 @@ const AddTaskButton = (props: any) => {
     if (e.key === 'Enter') {
       setIsInput(false)
       dispatch(createNewTask({status: e.target.id, text: e.target.value}))
+      setInputValue('')
+    }
+    if (e.key === 'Escape') {
+      setIsInput(false)
       setInputValue('')
     }
   }

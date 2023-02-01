@@ -8,7 +8,7 @@ import Task from './Task'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { setCurrentProjectId } from '../redux/projectsSlice'
-import AddTaskButton from './AddTaskButton'
+import AddTaskButton from './common/AddTaskButton'
 
 const TasksBoards: FC = () => {
   const projects = useSelector((state: RootState) => state.projects.projects)
