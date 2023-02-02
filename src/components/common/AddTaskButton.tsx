@@ -1,6 +1,31 @@
 import React, { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createNewTask } from '../../redux/projectsSlice'
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+  background: ${props => props.theme.background};
+  opacity: 0.5;
+  border: none;
+  width: 280px;
+  height: 30px;
+  font-size: 25px;
+  color: ${props => props.theme.title};
+  &:hover {
+    opacity: 1;
+    transition: 0.4s;
+  }
+`;
+
+const StyledInput = styled.input`
+  padding: 0 5px;
+  margin: 0;
+  font-size: 20px;
+  height: 30px;
+  width: 270px;
+  outline: none;
+  border: none;
+`;
 
 const AddTaskButton = (props: any) => {
 
@@ -27,14 +52,14 @@ const AddTaskButton = (props: any) => {
   }
 
   return (
-    isInput ? (<input 
+    isInput ? (<StyledInput 
       autoFocus
       id={props.section}
       value={inputValue} 
       onChange={changeInputValue}
       onKeyDown={onEnterPressed}/>) : 
     (
-      <button onClick={onClickCreateNewTask}>Add Task</button>
+      <StyledButton onClick={onClickCreateNewTask} theme={props.theme}>+</StyledButton>
     )
   )
 }

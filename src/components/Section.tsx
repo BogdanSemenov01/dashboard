@@ -9,14 +9,26 @@ import AddTaskButton from './common/AddTaskButton';
 interface Props {
   title?: string,
   tasks?: object,
+  colorSC: {
+    border: string 
+    background: string
+    title: string
+  },
   children: any,
 }
 
 const SectionWrapper = styled.div`
   width: 300px;
-  border: 1px solid black;
   height: 60vh;
+  border: 1px solid ${props => props.theme.border};
+  border-radius: 5px;
+  background-color: ${props => props.theme.background};
+  color: ${props => props.theme.title};
 `
+const SectionTitle = styled.div`
+  font-size: 35px;
+`;
+
 const Section = (props: Props) => {
   const dispatch = useDispatch()
   const projectId = useParams().id
@@ -28,12 +40,21 @@ const Section = (props: Props) => {
   }
 }))
 
+const updateChildrenWithProps = React.Children.map(
+  props.children,
+  (child, i) => {
+    return React.cloneElement(child, {
+      theme: props.colorSC
+    });
+  }
+);
+
   return (
-    <SectionWrapper  ref={drop}>
+    <SectionWrapper ref={drop} theme={props.colorSC}>
       <Flex flexDirection='column' gap='3px'>
-        <div>{props.title}</div>
-        {props.children}
-        <AddTaskButton section={props.title}/>
+        <SectionTitle>{props.title}</SectionTitle>
+        {updateChildrenWithProps}
+        <AddTaskButton section={props.title} theme={props.colorSC}/>
       </Flex>
     </SectionWrapper>
   )

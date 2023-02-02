@@ -8,7 +8,7 @@ const DeleteButton = (props: any) => {
     dispatch(deleteTask({section: props.section, taskId: props.id}))
   }
   return (
-    <button 
+    <button
       data-section={props.section} 
       id={props.id}
       onClick={onClickAction}

@@ -6,11 +6,26 @@ import DeleteButton from './common/DeleteButton';
 import Flex from './styled/CommonStyledComponents';
 
 const StyledTask = styled.div`
-  background-color: lightgray;
-  width: 100%;
+  background-color: white;
+  width: 90%;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 5px;
+  /* font-weight: 500; */
+  font-size: 20px;
+  border-radius: 3px;
+  color: ${props => props.theme.title};
+  &>button{
+    color: ${props => props.theme.title};
+    background: none;
+    border: 1px solid ${props => props.theme.background};
+    border-radius: 5px;
+    &:hover {
+      background: ${props => props.theme.background};
+    }
+  }
 `;
 
 export interface TaskProps {
@@ -18,6 +33,7 @@ export interface TaskProps {
   text: string
   index: number
   status: string
+  theme?: object
 }
 
 interface DragItem {
@@ -41,7 +57,7 @@ const Task: FC<TaskProps> = (props) => {
   const opacity = isDragging ? 0 : 1
   return (
     <>
-      <StyledTask style={{opacity}} ref={drag}>
+      <StyledTask style={{opacity}} ref={drag} theme={props.theme}>
         {props.text}
         <DeleteButton section={props.status} id={props.id}/>
       </StyledTask>

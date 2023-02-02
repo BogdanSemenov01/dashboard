@@ -10,6 +10,23 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { setCurrentProjectId } from '../redux/projectsSlice'
 import AddTaskButton from './common/AddTaskButton'
 
+const blueCS = {
+  border: 'rgb(38, 131, 182)',
+  background: 'rgba(45, 138, 186, 0.2)',
+  title: 'rgb(38, 131, 182)'
+}
+const orangeCS = {
+  border: 'rgb(255, 121, 25)',
+  background: 'rgba(255, 123, 29, 0.212)',
+  title: 'rgb(255, 121, 25)',
+}
+const greenCS = {
+  border: 'rgb(29, 182, 70)',
+  background: 'rgba(50, 202, 90, 0.2)',
+  title: 'rgb(29, 182, 70)'
+}
+
+
 const TasksBoards: FC = () => {
   const projects = useSelector((state: RootState) => state.projects.projects)
   const dispatch = useDispatch()
@@ -52,13 +69,13 @@ const TasksBoards: FC = () => {
     <div>
       <DndProvider backend={HTML5Backend}>
         <Flex justifyContent='space-between' gap='10px'>
-          <Section title={'Queue'}>
+          <Section title={'Queue'} colorSC={blueCS}>
             {renderTasks('Queue', queueTasks)}
           </Section>
-          <Section title={'Development'}>
+          <Section title={'Development'} colorSC={orangeCS}>
             {renderTasks('Development', developmentTasks)}
           </Section>
-          <Section title={'Done'}>
+          <Section title={'Done'} colorSC={greenCS}>
             {renderTasks('Done', doneTasks)}
           </Section>
         </Flex>
