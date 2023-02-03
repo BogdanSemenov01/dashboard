@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components';
 import Flex from './styled/CommonStyledComponents';
 import { useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
-import { changeTaskStatus } from '../redux/projectsSlice';
+import { changeTaskStatus, createNewTask } from '../redux/projectsSlice';
 import { useParams } from 'react-router-dom';
-import AddTaskButton from './common/AddTaskButton';
+import AddButton from './common/AddButton';
 interface Props {
   title?: string,
   tasks?: object,
@@ -32,6 +32,7 @@ const SectionTitle = styled.div`
 const Section = (props: Props) => {
   const dispatch = useDispatch()
   const projectId = useParams().id
+
   
   const [collectedProps, drop ] = useDrop(() => ({
     accept: 'task',
@@ -54,7 +55,7 @@ const updateChildrenWithProps = React.Children.map(
       <Flex flexDirection='column' gap='3px'>
         <SectionTitle>{props.title}</SectionTitle>
         {updateChildrenWithProps}
-        <AddTaskButton section={props.title} theme={props.colorSC}/>
+        <AddButton section={props.title} theme={props.colorSC} callback={createNewTask}/>
       </Flex>
     </SectionWrapper>
   )

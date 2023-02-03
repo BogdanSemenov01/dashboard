@@ -4,6 +4,8 @@ import { useDrag, useDrop } from 'react-dnd/dist/hooks';
 import styled from 'styled-components';
 import DeleteButton from './common/DeleteButton';
 import Flex from './styled/CommonStyledComponents';
+import { useDispatch } from 'react-redux';
+import { deleteTask } from '../redux/projectsSlice';
 
 const StyledTask = styled.div`
   background-color: white;
@@ -13,7 +15,6 @@ const StyledTask = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 5px;
-  /* font-weight: 500; */
   font-size: 20px;
   border-radius: 3px;
   color: ${props => props.theme.title};
@@ -42,8 +43,13 @@ interface DragItem {
   type: string
 }
 
+
 const Task: FC<TaskProps> = (props) => {
   const ref = useRef<HTMLDivElement>(null)
+  const dispatch = useDispatch()
+  const onClickAction = () => {
+    dispatch(deleteTask({section: props.status, taskId: props.id}))
+  }
   
   const [{ isDragging }, drag] = useDrag({
     type: 'task',
@@ -59,7 +65,7 @@ const Task: FC<TaskProps> = (props) => {
     <>
       <StyledTask style={{opacity}} ref={drag} theme={props.theme}>
         {props.text}
-        <DeleteButton section={props.status} id={props.id}/>
+        <DeleteButton onClick={onClickAction}/>
       </StyledTask>
     </>
   )

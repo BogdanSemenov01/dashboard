@@ -30,7 +30,7 @@ type Task = {
 const initialState:State = {
   projects: [
     {
-      title: 'Project 1',
+      title: 'DashBoard',
       id: 1,
       tasks: {
         queueTasks : [
@@ -51,23 +51,23 @@ const initialState:State = {
       }
     },
     {
-      title: 'Project 2',
+      title: 'Portfolio',
       id: 2,
       tasks: {
         queueTasks : [
-          {id: 1, text: 't 1 q'},
-          {id: 2, text: 't 2 q'},
-          {id: 3, text: 't 3 q'},
+          {id: 1, text: 'start'},
+          {id: 2, text: 'privet'},
+          {id: 3, text: 'go'},
         ],
         developmentTasks: [
-          {id: 4, text: 't 4 dev'},
-          {id: 5, text: 't 5 dev'},
-          {id: 6, text: 't 6 dev'},
+          {id: 4, text: 'boom'},
+          {id: 5, text: 'bam'},
+          {id: 6, text: 'sheesh'},
         ],
         doneTasks: [
-          {id: 7, text: 't 7 done'},
-          {id: 8, text: 't 8 done'},
-          {id: 9, text: 't 9 done'},
+          {id: 7, text: 'done'},
+          {id: 8, text: 'also done'},
+          {id: 9, text: 'another one'},
         ],
       }
       }
@@ -79,9 +79,10 @@ export const projectsSlice = createSlice({
   name: 'projects',
   initialState,
   reducers: {
-    createProject: (state) => {
+    createProject: (state, action) => {
       state.projects.push({
-        title: 'Project ' + `${Date.now()}`, id: Date.now(),
+        title: action.payload.text, 
+        id: Date.now(),
         tasks: undefined
       })
     },

@@ -11,7 +11,7 @@ const DeleteButton = (props: any) => {
     <button
       data-section={props.section} 
       id={props.id}
-      onClick={onClickAction}
+      onClick={props.onClick}
       >x</button>
   )
 }

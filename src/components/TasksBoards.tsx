@@ -8,7 +8,7 @@ import Task from './Task'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { setCurrentProjectId } from '../redux/projectsSlice'
-import AddTaskButton from './common/AddTaskButton'
+import AddButton from './common/AddButton'
 
 const blueCS = {
   border: 'rgb(38, 131, 182)',
@@ -41,6 +41,7 @@ const TasksBoards: FC = () => {
       currentProject.push(p)
     }
   })
+
 
   const tasks = currentProject[0].tasks
   const queueTasks = tasks.queueTasks

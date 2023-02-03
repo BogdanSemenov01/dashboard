@@ -7,6 +7,7 @@ const StyledButton = styled.button`
   background: ${props => props.theme.background};
   opacity: 0.5;
   border: none;
+  border-radius: 3px;
   width: 280px;
   height: 30px;
   font-size: 25px;
@@ -27,7 +28,7 @@ const StyledInput = styled.input`
   border: none;
 `;
 
-const AddTaskButton = (props: any) => {
+const AddButton = (props: any) => {
 
   const dispatch = useDispatch()
   const [inputValue, setInputValue] = useState('')
@@ -42,7 +43,7 @@ const AddTaskButton = (props: any) => {
   const onEnterPressed = (e:any) => {
     if (e.key === 'Enter') {
       setIsInput(false)
-      dispatch(createNewTask({status: e.target.id, text: e.target.value}))
+      dispatch(props.callback({status: e.target.id, text: e.target.value}))
       setInputValue('')
     }
     if (e.key === 'Escape') {
@@ -64,4 +65,4 @@ const AddTaskButton = (props: any) => {
   )
 }
 
-export default AddTaskButton
+export default AddButton
