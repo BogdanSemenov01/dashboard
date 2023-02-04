@@ -1,11 +1,11 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import type { FC } from 'react'
 import { useDrag, useDrop } from 'react-dnd/dist/hooks';
 import styled from 'styled-components';
 import DeleteButton from './common/DeleteButton';
 import Flex from './styled/CommonStyledComponents';
 import { useDispatch } from 'react-redux';
-import { deleteTask } from '../redux/projectsSlice';
+import { deleteTask, renameTask } from '../redux/projectsSlice';
 
 const StyledTask = styled.div`
   background-color: white;
@@ -18,7 +18,12 @@ const StyledTask = styled.div`
   font-size: 20px;
   border-radius: 3px;
   color: ${props => props.theme.title};
-  &>button{
+  &>div {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  &>div>button {
     color: ${props => props.theme.title};
     background: none;
     border: 1px solid ${props => props.theme.background};
@@ -47,9 +52,32 @@ interface DragItem {
 const Task: FC<TaskProps> = (props) => {
   const ref = useRef<HTMLDivElement>(null)
   const dispatch = useDispatch()
-  const onClickAction = () => {
+  const onClickDeleteTask = () => {
     dispatch(deleteTask({section: props.status, taskId: props.id}))
   }
+
+  const onClickRenameTask = () => {
+    setIsInput(true)
+  }
+
+  const changeInputValue = (e:any) => {
+    setInputValue(e.target.value)
+  }
+
+  const onEnterPressed = (e:any) => {
+    if (e.key === 'Enter') {
+      setIsInput(false)
+      dispatch(renameTask({section: props.status, taskId: e.target.id, newText: e.target.value}))
+      setInputValue('')
+    }
+    if (e.key === 'Escape') {
+      setIsInput(false)
+      setInputValue('')
+    }
+  }
+
+  const [inputValue, setInputValue] = useState(props.text)
+  const [isInput, setIsInput] = useState(false)
   
   const [{ isDragging }, drag] = useDrag({
     type: 'task',
@@ -64,8 +92,18 @@ const Task: FC<TaskProps> = (props) => {
   return (
     <>
       <StyledTask style={{opacity}} ref={drag} theme={props.theme}>
-        {props.text}
-        <DeleteButton onClick={onClickAction}/>
+        {isInput ? 
+        <input 
+          autoFocus
+          value={inputValue}
+          onChange={changeInputValue}
+          onKeyDown={onEnterPressed}
+          id={props.id}
+        /> : props.text}
+        <div className="controls">
+          <button onClick={onClickRenameTask}>r</button>
+          <DeleteButton onClick={onClickDeleteTask}/>
+        </div>
       </StyledTask>
     </>
   )

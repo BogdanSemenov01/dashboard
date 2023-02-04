@@ -125,6 +125,18 @@ export const projectsSlice = createSlice({
           }
         }
       })
+    }, 
+    renameTask: (state, action) => {
+      state.projects.map((p:any) => {
+        if (p.id === state.currentProjectId) {
+          let section = selectSection(action.payload.section)
+          p.tasks[section].map((t:any) => {
+            if (t.id == action.payload.taskId) {
+              t.text = action.payload.newText
+            }
+          })
+        }
+      })
     }
   },
 })
@@ -135,7 +147,8 @@ export const {
   setCurrentProjectId, 
   changeTaskStatus,
   createNewTask,
-  deleteTask
+  deleteTask,
+  renameTask,
 } = projectsSlice.actions
 
 export default projectsSlice.reducer
