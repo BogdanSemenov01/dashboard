@@ -4,6 +4,8 @@ import ProjectsBoard from './components/ProjectsBoard';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import TasksBoards from './components/TasksBoards';
 import ErrorBoundary from './components/common/ErrorBoundary';
+import ModalProvider from './context/ModalContext/ModalContextProvider';
+
 const AppWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -14,13 +16,15 @@ function App() {
   return  (
     <BrowserRouter>
       <AppWrapper>
-        <Routes>
-          <Route path='/' element={<ProjectsBoard />}/>
-          <Route 
-            path='/:id' 
-            element={<ErrorBoundary><TasksBoards /></ErrorBoundary>} 
-          />
-        </Routes>
+        <ModalProvider>
+          <Routes>
+            <Route path='/' element={<ProjectsBoard />}/>
+            <Route 
+              path='/:id' 
+              element={<ErrorBoundary><TasksBoards /></ErrorBoundary>} 
+              />
+          </Routes>
+        </ModalProvider>
       </AppWrapper>
     </BrowserRouter>
   );

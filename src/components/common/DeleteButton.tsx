@@ -8,9 +8,7 @@ const StyledButton = styled.button`
 `;
 const DeleteButton = (props: any) => {
   const dispatch = useDispatch()
-  // const onClickAction = () => {
-  //   dispatch(deleteTask({section: props.section, taskId: props.id}))
-  // }
+
   return (
     <StyledButton
       data-section={props.section} 

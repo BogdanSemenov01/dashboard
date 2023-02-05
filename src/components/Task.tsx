@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import type { FC } from 'react'
 import { useDrag, useDrop } from 'react-dnd/dist/hooks';
 import styled from 'styled-components';
@@ -6,6 +6,7 @@ import DeleteButton from './common/DeleteButton';
 import Flex from './styled/CommonStyledComponents';
 import { useDispatch } from 'react-redux';
 import { deleteTask, renameTask } from '../redux/projectsSlice';
+import { ModalContext } from '../context/ModalContext/ModalContext';
 
 const StyledTask = styled.div`
   background-color: white;
@@ -50,14 +51,21 @@ interface DragItem {
 
 
 const Task: FC<TaskProps> = (props) => {
+
   const ref = useRef<HTMLDivElement>(null)
   const dispatch = useDispatch()
+  const {openModal} = useContext(ModalContext)
+
+
   const onClickDeleteTask = () => {
     dispatch(deleteTask({section: props.status, taskId: props.id}))
   }
 
   const onClickRenameTask = () => {
-    setIsInput(true)
+    openModal({
+      title: 'Hello'
+    })
+    // setIsInput(true)
   }
 
   const changeInputValue = (e:any) => {
