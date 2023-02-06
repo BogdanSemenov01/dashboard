@@ -7,7 +7,6 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 const DeleteButton = (props: any) => {
-  const dispatch = useDispatch()
 
   return (
     <StyledButton

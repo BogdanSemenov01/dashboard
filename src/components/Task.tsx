@@ -63,7 +63,7 @@ const Task: FC<TaskProps> = (props) => {
 
   const onClickRenameTask = () => {
     openModal({
-      title: 'Hello'
+      title: 'Change your task'
     })
     // setIsInput(true)
   }

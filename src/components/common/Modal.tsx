@@ -1,10 +1,6 @@
 import React, { useContext, useState } from 'react'
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { ModalContext } from '../../context/ModalContext/ModalContext';
-
-interface IModalBackdropStyle {
-  closing: boolean
-}
 
 const showModalBackDrop = keyframes`
   from {
@@ -45,7 +41,7 @@ const hideModal = keyframes`
   }
 ` 
 
-const StyledModalBackDrop = styled('div')`
+const StyledModalBackDrop = styled('div')<{closing:boolean}>`
   position: fixed;
   top: 0;
   left: 0;
@@ -57,22 +53,43 @@ const StyledModalBackDrop = styled('div')`
   background-color: rgba(0, 0, 0, 0.1);
   z-index: 100;
 
-  animation: ${showModalBackDrop}; .3s ease-out;
+  ${props => props.closing ? backdropAnimationOnClose : backdropAnimationOnOpen};
 `;
 
-const StyledModal = styled('div')`
+const StyledModal = styled('div')<{closing: boolean}>`
   background-color: white;
   width: 800px;
   height: 600px;
   border-radius: 10px;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
 
-  animation: ${showModal} .3s ease-out;
+  ${props => props.closing ? modalAnimationOnClose : modalAnimationOnOpen};
 `;
 
+const modalAnimationOnOpen = css`
+  animation: ${showModal} .3s ease-out;
+`
+const modalAnimationOnClose = css`
+  animation: ${hideModal} .3s ease-out;
+`
+const backdropAnimationOnOpen = css`
+  animation: ${showModalBackDrop} .3s ease-out;
+`
+const backdropAnimationOnClose = css`
+  animation: ${hideModalBackDrop} .3s ease-out;
+`
+
 const StyledModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px 20px;
   border-bottom: 1px solid rgb(219, 219, 219);
+  &>h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+  }
 `;
 
 const StyledModalBody = styled.div`
@@ -88,17 +105,20 @@ const Modal = (props: any) => {
 
   const onClickClose = () => {
     setClosing(true)
-
-    closeModal()
+    const closeTimeout = setTimeout(() => {
+      clearTimeout(closeTimeout)
+      closeModal()
+    }, 290)
   }
 
 
 
   return (
-    <StyledModalBackDrop onClick={onClickClose}>
-      <StyledModal onClick={(e) => {e.stopPropagation()}}>
+    <StyledModalBackDrop onClick={onClickClose} closing={closing}>
+      <StyledModal onClick={(e) => {e.stopPropagation()}} closing={closing}>
         <StyledModalHeader>
-          {title}
+          <h3>{title}</h3>
+          <button onClick={onClickClose}>x</button>
         </StyledModalHeader>
         <StyledModalBody>
           {children}
