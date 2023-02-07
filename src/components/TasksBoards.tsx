@@ -59,6 +59,8 @@ const TasksBoards: FC = () => {
             key={t.id} 
             index={index} 
             status={sectionTitle}
+            description={t.description}
+            priority={t.priority}
             />
         )
       })

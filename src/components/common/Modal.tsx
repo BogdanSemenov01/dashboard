@@ -57,6 +57,7 @@ const StyledModalBackDrop = styled('div')<{closing:boolean}>`
 `;
 
 const StyledModal = styled('div')<{closing: boolean}>`
+  margin-top: -200px; 
   background-color: white;
   width: 800px;
   height: 600px;

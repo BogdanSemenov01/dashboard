@@ -11,6 +11,7 @@ type Project = {
   title: string
   id: number
   tasks: Tasks | undefined
+
 }
 
 
@@ -19,12 +20,15 @@ type Tasks = {
   developmentTasks: StatusTasks
   doneTasks: StatusTasks 
 }
+
 type StatusTasks = Array<Task>
 
 
 type Task = {
   id: number
   text: string
+  description?: string | undefined
+  priority?: string | undefined
 }
 
 const initialState:State = {
@@ -34,19 +38,13 @@ const initialState:State = {
       id: 1,
       tasks: {
         queueTasks : [
-          {id: 1, text: 'blabla'},
-          {id: 2, text: 'blabla'},
-          {id: 3, text: 'blabla'},
+          {id: 1, text: 'queue', description: '', priority: ''},
         ],
         developmentTasks: [
-          {id: 4, text: 'blabla'},
-          {id: 5, text: 'blabla'},
-          {id: 6, text: 'blabla'},
+          {id: 2, text: 'dev', description: '', priority: ''},
         ],
         doneTasks: [
-          {id: 7, text: 'blabla'},
-          {id: 8, text: 'blabla'},
-          {id: 9, text: 'blabla'},
+          {id: 3, text: 'done', description: '', priority: ''},
         ],
       }
     },
@@ -55,19 +53,13 @@ const initialState:State = {
       id: 2,
       tasks: {
         queueTasks : [
-          {id: 1, text: 'start'},
-          {id: 2, text: 'privet'},
-          {id: 3, text: 'go'},
+          {id: 1, text: 'a', description: '', priority: ''},
         ],
         developmentTasks: [
-          {id: 4, text: 'boom'},
-          {id: 5, text: 'bam'},
-          {id: 6, text: 'sheesh'},
+          {id: 2, text: 'b', description: 'aaa', priority: 'middle'},
         ],
         doneTasks: [
-          {id: 7, text: 'done'},
-          {id: 8, text: 'also done'},
-          {id: 9, text: 'another one'},
+          {id: 3, text: 'c', description: '', priority: ''},
         ],
       }
       }
@@ -126,13 +118,16 @@ export const projectsSlice = createSlice({
         }
       })
     }, 
-    renameTask: (state, action) => {
+    changeTask: (state, action) => {
       state.projects.map((p:any) => {
         if (p.id === state.currentProjectId) {
           let section = selectSection(action.payload.section)
           p.tasks[section].map((t:any) => {
             if (t.id == action.payload.taskId) {
+              t.id = t.id
               t.text = action.payload.newText
+              t.description = action.payload.newDescription
+              t.priority = action.payload.newPriority
             }
           })
         }
@@ -148,7 +143,7 @@ export const {
   changeTaskStatus,
   createNewTask,
   deleteTask,
-  renameTask,
+  changeTask,
 } = projectsSlice.actions
 
 export default projectsSlice.reducer

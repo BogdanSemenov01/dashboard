@@ -5,8 +5,9 @@ import styled from 'styled-components';
 import DeleteButton from './common/DeleteButton';
 import Flex from './styled/CommonStyledComponents';
 import { useDispatch } from 'react-redux';
-import { deleteTask, renameTask } from '../redux/projectsSlice';
+import { deleteTask } from '../redux/projectsSlice';
 import { ModalContext } from '../context/ModalContext/ModalContext';
+import ChangeTaskForm from './common/Forms/ChangeTaskForm';
 
 const StyledTask = styled.div`
   background-color: white;
@@ -40,6 +41,8 @@ export interface TaskProps {
   text: string
   index: number
   status: string
+  description: string
+  priority: string
   theme?: object
 }
 
@@ -63,29 +66,29 @@ const Task: FC<TaskProps> = (props) => {
 
   const onClickRenameTask = () => {
     openModal({
-      title: 'Change your task'
+      title: 'Change your task',
+      children: <ChangeTaskForm taskData={props}/>,
     })
-    // setIsInput(true)
   }
 
-  const changeInputValue = (e:any) => {
-    setInputValue(e.target.value)
-  }
+  // const changeInputValue = (e:any) => {
+  //   setInputValue(e.target.value)
+  // }
 
-  const onEnterPressed = (e:any) => {
-    if (e.key === 'Enter') {
-      setIsInput(false)
-      dispatch(renameTask({section: props.status, taskId: e.target.id, newText: e.target.value}))
-      setInputValue('')
-    }
-    if (e.key === 'Escape') {
-      setIsInput(false)
-      setInputValue('')
-    }
-  }
+  // const onEnterPressed = (e:any) => {
+  //   if (e.key === 'Enter') {
+  //     setIsInput(false)
+  //     dispatch(renameTask({section: props.status, taskId: e.target.id, newText: e.target.value}))
+  //     setInputValue('')
+  //   }
+  //   if (e.key === 'Escape') {
+  //     setIsInput(false)
+  //     setInputValue('')
+  //   }
+  // }
 
-  const [inputValue, setInputValue] = useState(props.text)
-  const [isInput, setIsInput] = useState(false)
+  // const [inputValue, setInputValue] = useState(props.text)
+  // const [isInput, setIsInput] = useState(false)
   
   const [{ isDragging }, drag] = useDrag({
     type: 'task',
@@ -100,14 +103,7 @@ const Task: FC<TaskProps> = (props) => {
   return (
     <>
       <StyledTask style={{opacity}} ref={drag} theme={props.theme}>
-        {isInput ? 
-        <input 
-          autoFocus
-          value={inputValue}
-          onChange={changeInputValue}
-          onKeyDown={onEnterPressed}
-          id={props.id}
-        /> : props.text}
+        {props.text}
         <div className="controls">
           <button onClick={onClickRenameTask}>r</button>
           <DeleteButton onClick={onClickDeleteTask}/>
