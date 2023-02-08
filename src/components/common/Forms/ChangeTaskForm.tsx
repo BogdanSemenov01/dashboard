@@ -14,14 +14,27 @@ interface IFormInput {
 const StyledForm = styled('form')<{onSubmit: any}>`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+  & > input{
+    font-size: 20px;
+  }
+  & > textarea{
+    font-size: 20px;
+    
+  }
+  & > select {
+    font-size: 20px;
+
+  }
   &>label {
     font-size: 25px;
     margin: 15px 0;
   }
   &>button {
     margin-top: 10%;
+    width: 100px;
+    height: 50px;
   }
 `
 
@@ -57,7 +70,7 @@ const ChangeTaskForm = (props:any) => {
       <label htmlFor="text">Change current task text</label>
       <input  {...register('text')} />
       <label htmlFor="description">Change description</label>
-      <textarea  {...register('description')} />
+      <textarea  {...register('description')} placeholder='Description'/>
       <label htmlFor="priority">Select priority</label>
       <select {...register('priority')}>
         <option value="low">low</option>

@@ -8,11 +8,12 @@ import { useDispatch } from 'react-redux';
 import { deleteTask } from '../redux/projectsSlice';
 import { ModalContext } from '../context/ModalContext/ModalContext';
 import ChangeTaskForm from './common/Forms/ChangeTaskForm';
+import icon from '../assets/icons/139-1397650_gears-png-file-transparent-background-gear-icon.png'
 
 const StyledTask = styled.div`
   background-color: white;
   width: 90%;
-  height: 30px;
+  min-height: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -70,25 +71,6 @@ const Task: FC<TaskProps> = (props) => {
       children: <ChangeTaskForm taskData={props}/>,
     })
   }
-
-  // const changeInputValue = (e:any) => {
-  //   setInputValue(e.target.value)
-  // }
-
-  // const onEnterPressed = (e:any) => {
-  //   if (e.key === 'Enter') {
-  //     setIsInput(false)
-  //     dispatch(renameTask({section: props.status, taskId: e.target.id, newText: e.target.value}))
-  //     setInputValue('')
-  //   }
-  //   if (e.key === 'Escape') {
-  //     setIsInput(false)
-  //     setInputValue('')
-  //   }
-  // }
-
-  // const [inputValue, setInputValue] = useState(props.text)
-  // const [isInput, setIsInput] = useState(false)
   
   const [{ isDragging }, drag] = useDrag({
     type: 'task',
@@ -105,7 +87,9 @@ const Task: FC<TaskProps> = (props) => {
       <StyledTask style={{opacity}} ref={drag} theme={props.theme}>
         {props.text}
         <div className="controls">
-          <button onClick={onClickRenameTask}>r</button>
+          <button onClick={onClickRenameTask}>
+            s
+          </button>
           <DeleteButton onClick={onClickDeleteTask}/>
         </div>
       </StyledTask>
