@@ -53,10 +53,43 @@ interface DragItem {
   type: string
 }
 
+const StyledPriorityFragment = styled('p')<{color: string | undefined}>`
+  color: ${props => props.color};
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+`
+
+const PriorityBar = ({priority}: any) => {
+  let color
+  let content
+  switch (priority) {
+    case 'low':
+      content = '!'
+      color = 'green'
+      break;
+    case 'middle':
+      content = '!!'
+      color = 'orange'
+      break;
+    case 'high':
+      content = '!!!'
+      color = 'red'
+      break;
+  
+    default:
+      break;
+  }
+  return (
+    <StyledPriorityFragment color={color}>
+      {content}
+    </StyledPriorityFragment>
+  )
+}
+
 
 const Task: FC<TaskProps> = (props) => {
 
-  const ref = useRef<HTMLDivElement>(null)
   const dispatch = useDispatch()
   const {openModal} = useContext(ModalContext)
 
@@ -85,7 +118,10 @@ const Task: FC<TaskProps> = (props) => {
   return (
     <>
       <StyledTask style={{opacity}} ref={drag} theme={props.theme}>
-        {props.text}
+        <div>
+          <PriorityBar priority={props.priority}/>
+          {props.text}
+        </div>
         <div className="controls">
           <button onClick={onClickRenameTask}>
             s
