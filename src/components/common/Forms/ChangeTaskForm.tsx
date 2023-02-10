@@ -1,8 +1,9 @@
 import React from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { changeTask } from '../../../redux/projectsSlice';
+import Subtask from '../../Subtask';
 
 interface IFormInput {
   text: string
@@ -42,13 +43,22 @@ const ChangeTaskForm = (props:any) => {
 
   const dispatch = useDispatch()
 
-  const {register, handleSubmit} = useForm<IFormInput>({
+  
+  const {register, control, handleSubmit } = useForm({
     defaultValues: {
       text: props.taskData.text,
       description: props.taskData.description,
       priority: props.taskData.priority,
+      subTasks: [
+        ...props.taskData.subTasks
+      ]
     }
   })
+
+  const { fields } = useFieldArray({
+    control,
+    name: "subTasks"
+  });
 
   const onSubmit = (data:any, e: any) => {
     dispatch(changeTask({
@@ -56,8 +66,8 @@ const ChangeTaskForm = (props:any) => {
       section: props.taskData.status,
       newText: data.text,
       newDescription: data.description,
-      newPriority: data.priority
-
+      newPriority: data.priority,
+      newSubTasks: data.subTasks
     }))
 
   };
@@ -67,16 +77,24 @@ const ChangeTaskForm = (props:any) => {
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit, onError)}>
-      <label htmlFor="text">Change current task text</label>
-      <input  {...register('text')} />
-      <label htmlFor="description">Change description</label>
-      <textarea  {...register('description')} placeholder='Description'/>
-      <label htmlFor="priority">Select priority</label>
-      <select {...register('priority')}>
-        <option value="low">low</option>
-        <option value="middle">middle</option>
-        <option value="high">high</option>
-      </select>
+      <div>
+        <label htmlFor="text">Change current task text</label>
+        <input  {...register('text')} />
+        <label htmlFor="priority">Select priority</label>
+        <select {...register('priority')}>
+          <option value="low">low</option>
+          <option value="middle">middle</option>
+          <option value="high">high</option>
+        </select>
+      </div>
+      <div>
+        <label htmlFor="description">Change description</label>
+        <textarea  {...register('description')} placeholder='Description'/>
+      </div>
+      <div>
+        <h3>Goals</h3>
+        <Subtask subTasks={fields} register={register}/>
+      </div>
       <button>Accept</button>
     </StyledForm>
   )

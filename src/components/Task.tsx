@@ -45,6 +45,7 @@ export interface TaskProps {
   description: string
   priority: string
   theme?: object
+  subTasks: object
 }
 
 interface DragItem {

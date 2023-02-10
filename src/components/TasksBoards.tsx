@@ -61,6 +61,7 @@ const TasksBoards: FC = () => {
             status={sectionTitle}
             description={t.description}
             priority={t.priority}
+            subTasks={t.subTasks}
             />
         )
       })
