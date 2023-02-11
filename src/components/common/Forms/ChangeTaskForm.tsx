@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { changeTask } from '../../../redux/projectsSlice';
 import Subtask from '../../Subtask';
+import AddButton from '../AddButton';
 
 interface IFormInput {
   text: string
@@ -55,7 +56,7 @@ const ChangeTaskForm = (props:any) => {
     }
   })
 
-  const { fields } = useFieldArray({
+  const { fields, append } = useFieldArray({
     control,
     name: "subTasks"
   });
@@ -94,6 +95,7 @@ const ChangeTaskForm = (props:any) => {
       <div>
         <h3>Goals</h3>
         <Subtask subTasks={fields} register={register}/>
+        <AddButton action={append}/>
       </div>
       <button>Accept</button>
     </StyledForm>

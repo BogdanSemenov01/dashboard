@@ -101,7 +101,7 @@ const Task: FC<TaskProps> = (props) => {
 
   const onClickRenameTask = () => {
     openModal({
-      title: 'Change your task',
+      title: props.text,
       children: <ChangeTaskForm taskData={props}/>,
     })
   }

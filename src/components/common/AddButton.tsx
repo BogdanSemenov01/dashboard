@@ -43,7 +43,14 @@ const AddButton = (props: any) => {
   const onEnterPressed = (e:any) => {
     if (e.key === 'Enter') {
       setIsInput(false)
-      dispatch(props.callback({status: e.target.id, text: e.target.value}))
+      if (props.callback) {
+        dispatch(props.callback({status: e.target.id, text: e.target.value}))
+      }
+      props.action({
+        id: Date.now(),
+        text: e.target.value,
+        isComplete: false
+      })
       setInputValue('')
     }
     if (e.key === 'Escape') {

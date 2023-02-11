@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components';
 import { ModalContext } from '../../context/ModalContext/ModalContext';
 
@@ -98,6 +98,7 @@ const StyledModalBody = styled.div`
 `;
 
 const Modal = (props: any) => {
+  
   const {title, children} = props
 
   const {closeModal} = useContext(ModalContext)
