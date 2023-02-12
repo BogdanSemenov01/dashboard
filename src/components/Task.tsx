@@ -18,6 +18,7 @@ const StyledTask = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 5px;
+  position: relative;
   font-size: 20px;
   border-radius: 3px;
   color: ${props => props.theme.title};
@@ -45,7 +46,7 @@ export interface TaskProps {
   description: string
   priority: string
   theme?: object
-  subTasks: object
+  subTasks: object[]
 }
 
 interface DragItem {
@@ -89,7 +90,36 @@ const PriorityBar = ({priority}: any) => {
 }
 
 
+const StyledProgressBar = styled('div')<{result: number}>`
+  width: ${props => props.result}px; 
+    height: 30px; 
+    background-color: lightgray;
+    opacity: 0.3;
+    position: absolute;
+    left: 0%;
+    pointer-events: none;
+    display: flex;
+    justify-content: flex-end;
+    &>span{
+      padding: 0 5px;
+
+    }
+`;
+
+const ProgressBar = ({progressPercent}: any) => {
+  let resultWidth = 280 * (progressPercent / 100)
+  return <StyledProgressBar result={resultWidth}>
+    <span>
+      {progressPercent > 0 && Math.round(progressPercent) + ' %'}
+    </span>
+  </StyledProgressBar>
+}
+
 const Task: FC<TaskProps> = (props) => {
+
+  const completeSubtasks = props.subTasks.filter((t:any) => t.isComplete).length
+  const allSubtasks = props.subTasks.length
+  const progressPercent = completeSubtasks / allSubtasks * 100
 
   const dispatch = useDispatch()
   const {openModal} = useContext(ModalContext)
@@ -119,6 +149,7 @@ const Task: FC<TaskProps> = (props) => {
   return (
     <>
       <StyledTask style={{opacity}} ref={drag} theme={props.theme}>
+          <ProgressBar progressPercent={progressPercent}/>
         <div>
           <PriorityBar priority={props.priority}/>
           {props.text}

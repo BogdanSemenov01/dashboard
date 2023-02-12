@@ -29,9 +29,9 @@ const StyledForm = styled('form')<{onSubmit: any}>`
     font-size: 20px;
 
   }
-  &>label {
-    font-size: 25px;
-    margin: 15px 0;
+  & > label {
+    font-size: 20px;
+    /* margin: 15px 0; */
   }
   &>button {
     margin-top: 10%;
@@ -39,6 +39,15 @@ const StyledForm = styled('form')<{onSubmit: any}>`
     height: 50px;
   }
 `
+
+const StyledGoalsBlock = styled('div')`
+  & > p {
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+    text-align: center;
+  }
+`;
 
 const ChangeTaskForm = (props:any) => {
 
@@ -78,7 +87,6 @@ const ChangeTaskForm = (props:any) => {
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit, onError)}>
-      <div>
         <label htmlFor="text">Change current task text</label>
         <input  {...register('text')} />
         <label htmlFor="priority">Select priority</label>
@@ -87,16 +95,13 @@ const ChangeTaskForm = (props:any) => {
           <option value="middle">middle</option>
           <option value="high">high</option>
         </select>
-      </div>
-      <div>
         <label htmlFor="description">Change description</label>
         <textarea  {...register('description')} placeholder='Description'/>
-      </div>
-      <div>
-        <h3>Goals</h3>
+      <StyledGoalsBlock>
+        <p>Goals</p>
         <Subtask subTasks={fields} register={register}/>
         <AddButton action={append}/>
-      </div>
+      </StyledGoalsBlock>
       <button>Accept</button>
     </StyledForm>
   )

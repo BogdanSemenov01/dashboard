@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 
 const StyledSubtaskWrapper = styled('div')`
-  height: 210px;
+  height: 105px;
   overflow-y: auto;
 `;
 
