@@ -65,7 +65,7 @@ const ChangeTaskForm = (props:any) => {
     }
   })
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "subTasks"
   });
@@ -99,7 +99,7 @@ const ChangeTaskForm = (props:any) => {
         <textarea  {...register('description')} placeholder='Description'/>
       <StyledGoalsBlock>
         <p>Goals</p>
-        <Subtask subTasks={fields} register={register}/>
+        <Subtask subTasks={fields} register={register} remove={remove}/>
         <AddButton action={append}/>
       </StyledGoalsBlock>
       <button>Accept</button>
