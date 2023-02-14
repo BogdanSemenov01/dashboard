@@ -7,7 +7,7 @@ type State = {
   currentProjectId: number
 }
 
-type Project = {
+export type Project = {
   title: string
   id: number
   tasks: Tasks | undefined

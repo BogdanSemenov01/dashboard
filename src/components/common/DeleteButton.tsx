@@ -3,10 +3,21 @@ import { useDispatch } from 'react-redux'
 import { deleteTask } from '../../redux/projectsSlice'
 import styled from 'styled-components';
 
-const StyledButton = styled.button`
+const StyledButton = styled('button')<StyledButtonProps>`
   cursor: pointer;
 `;
-const DeleteButton = (props: any) => {
+
+type StyledButtonProps = {
+  id: string | undefined
+}
+
+type DeleteButtonProps = {
+  section?: string
+  id: string | undefined
+  onClick: (event: React.MouseEvent) => void
+}
+
+const DeleteButton = (props: DeleteButtonProps) => {
 
   return (
     <StyledButton

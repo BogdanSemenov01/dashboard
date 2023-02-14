@@ -2,8 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { RootState } from '../redux/store'
-import Flex from './styled/CommonStyledComponents'
-import { createProject, deleteProject } from '../redux/projectsSlice'
+import { Project, createProject, deleteProject } from '../redux/projectsSlice'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom'
 import DeleteButton from './common/DeleteButton'
@@ -60,20 +59,20 @@ const theme = {
   title: 'rgb(218, 37, 67)'
 }
 
-const ProjectsBoard = () => {
+const ProjectsBoard = (): React.ReactElement => {
 
   const projects = useSelector((state: RootState) => state.projects.projects)
   const dispatch = useDispatch()
 
-  const onClickDeleteProject = (e:any) => {
-    dispatch(deleteProject({id: e.target.id}))
+  const onClickDeleteProject = (event:any) => {
+    dispatch(deleteProject({id: event.target.id}))
   }
 
   return (
     <div>
         <StyledProjectsBoard>
         <StyledProjectsBoardTitle>Projects</StyledProjectsBoardTitle>
-        {projects.map((p:any) => {
+        {projects.map((p: Project) => {
           return <StyledProject key={p.id}>
             <Link to={'/' + p.id}>
               {p.title}
@@ -81,9 +80,6 @@ const ProjectsBoard = () => {
             <DeleteButton onClick={onClickDeleteProject} id={p.id.toFixed()} />
             </StyledProject>
         })}
-      {/* <StyledProject onClick={createNewProject}>
-        Create new project +
-      </StyledProject> */}
       <AddButton callback={createProject} theme={theme}/>
         </StyledProjectsBoard>
     </div>
