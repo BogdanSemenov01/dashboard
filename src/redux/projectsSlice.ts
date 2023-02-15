@@ -10,7 +10,7 @@ type State = {
 export type Project = {
   title: string
   id: number
-  tasks: Tasks | undefined
+  tasks: Tasks
 
 }
 
@@ -27,9 +27,9 @@ type StatusTasks = Array<Task>
 type Task = {
   id: number
   text: string
-  description: string | undefined
+  description: string
   priority: 'low' | 'middle' | 'high'
-  subTasks: Subtask[]
+  subTasks: Array<Subtask>
 }
 
 type Subtask = {
@@ -133,11 +133,15 @@ export const projectsSlice = createSlice({
       state.projects.push({
         title: action.payload.text,
         id: Date.now(),
-        tasks: undefined
+        tasks: {
+          queueTasks: [],
+          developmentTasks: [],
+          doneTasks: [],
+        }
       })
     },
     deleteProject: (state, action) => {
-      const index = state.projects.findIndex((p: any) => p.id === +action.payload.id)
+      const index = state.projects.findIndex((p: Project) => p.id === +action.payload.id)
       if (index > -1) {
         state.projects.splice(index, 1)
       }
@@ -146,7 +150,7 @@ export const projectsSlice = createSlice({
       state.currentProjectId = Number(action.payload.projectId)
     },
     changeTaskStatus: (state, action) => {
-      state.projects.map((p: any) => {
+      state.projects.map((p: Project) => {
         if (p.id === state.currentProjectId) {
           const element = removeTaskFromCurrentStatus(p.tasks, action.payload.currentStatus, action.payload.id)
           pushTaskToNextStatus(p.tasks, element, action.payload.nextStatus)
@@ -162,17 +166,17 @@ export const projectsSlice = createSlice({
         priority: 'low',
         subTasks: []
       }
-      state.projects.map((p: any) => {
+      state.projects.map((p: Project) => {
         if (p.id === state.currentProjectId) {
           p.tasks[statusTask].push(element)
         }
       })
     },
     deleteTask: (state, action) => {
-      state.projects.map((p: any) => {
+      state.projects.map((p: Project) => {
         if (p.id === state.currentProjectId) {
           let section = selectSection(action.payload.section)
-          let index = p.tasks[section].findIndex((t: any) => t.id === action.payload.taskId)
+          let index = p.tasks[section].findIndex((t: Task) => t.id === action.payload.taskId)
           if (index > -1) {
             p.tasks[section].splice(index, 1)
           }
@@ -180,10 +184,10 @@ export const projectsSlice = createSlice({
       })
     },
     changeTask: (state, action) => {
-      state.projects.map((p: any) => {
+      state.projects.map((p: Project) => {
         if (p.id === state.currentProjectId) {
           let section = selectSection(action.payload.section)
-          p.tasks[section].map((t: any) => {
+          p.tasks[section].map((t: Task) => {
             if (t.id == action.payload.taskId) {
               t.text = action.payload.newText
               t.description = action.payload.newDescription
@@ -210,34 +214,29 @@ export const {
 export default projectsSlice.reducer
 
 
-const pushTaskToNextStatus = (state: any, element: any, nextStatus: any) => {
+const pushTaskToNextStatus = (state: Tasks, element: Task, nextStatus: string): void => {
   let section = selectSection(nextStatus)
   state[section].push(element)
 }
 
-const removeTaskFromCurrentStatus = (state: any, currentStatus: any, id: any) => {
+const removeTaskFromCurrentStatus = (state: Tasks, currentStatus: string, id: number): Task => {
   let section = selectSection(currentStatus)
-  const index = state[section].findIndex((el: any) => el.id === id)
+  const index = state[section].findIndex((el: Task) => el.id === id)
   const result = state[section].splice(index, 1)[0]
   return result
 }
 
 
 
-const selectSection = (status: string): string => {
-  let section = ''
+const selectSection = (status: string): 'queueTasks' | 'developmentTasks' | 'doneTasks' => {
   switch (status) {
     case 'Queue':
-      section = 'queueTasks'
-      break
+      return 'queueTasks'
     case 'Development':
-      section = 'developmentTasks'
-      break
+      return 'developmentTasks'
     case 'Done':
-      section = 'doneTasks'
-      break
+      return 'doneTasks'
     default:
-      break
+      return 'queueTasks'
   }
-  return section
 }

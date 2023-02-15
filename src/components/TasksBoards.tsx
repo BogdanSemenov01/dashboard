@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 import Task from './Task'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { setCurrentProjectId } from '../redux/projectsSlice'
+import { Project, setCurrentProjectId } from '../redux/projectsSlice'
 import AddButton from './common/AddButton'
 
 const blueCS = {
@@ -35,8 +35,8 @@ const TasksBoards: FC = () => {
     dispatch(setCurrentProjectId({projectId}))
   }, [])
   
-  const currentProject:any = [] 
-  projects.map((p:any) => {
+  const currentProject: Array<any> = [] 
+  projects.map((p:Project) => {
     if(p.id.toString() === projectId) {
       currentProject.push(p)
     }

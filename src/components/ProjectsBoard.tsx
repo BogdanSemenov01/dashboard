@@ -64,7 +64,7 @@ const ProjectsBoard = (): React.ReactElement => {
   const projects = useSelector((state: RootState) => state.projects.projects)
   const dispatch = useDispatch()
 
-  const onClickDeleteProject = (event:any) => {
+  const onClickDeleteProject = (event: any) => {
     dispatch(deleteProject({id: event.target.id}))
   }
 
