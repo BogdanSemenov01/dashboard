@@ -3,12 +3,10 @@ import type { FC } from 'react'
 import { useDrag, useDrop } from 'react-dnd/dist/hooks';
 import styled from 'styled-components';
 import DeleteButton from './common/DeleteButton';
-import Flex from './styled/CommonStyledComponents';
-import { useDispatch } from 'react-redux';
 import { deleteTask } from '../redux/projectsSlice';
 import { ModalContext } from '../context/ModalContext/ModalContext';
 import ChangeTaskForm from './common/Forms/ChangeTaskForm';
-import icon from '../assets/icons/139-1397650_gears-png-file-transparent-background-gear-icon.png'
+import { useAppDispatch } from '../redux/store';
 
 const StyledTask = styled.div`
   background-color: white;
@@ -47,12 +45,6 @@ export interface TaskProps {
   priority: string
   theme?: object
   subTasks: object[]
-}
-
-interface DragItem {
-  index: number
-  id: string
-  type: string
 }
 
 const StyledPriorityFragment = styled('p')<{color: string | undefined}>`
@@ -121,7 +113,7 @@ const Task: FC<TaskProps> = (props) => {
   const allSubtasks = props.subTasks.length
   const progressPercent = completeSubtasks / allSubtasks * 100
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const {openModal} = useContext(ModalContext)
 
 

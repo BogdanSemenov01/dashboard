@@ -6,13 +6,6 @@ import { changeTask } from '../../../redux/projectsSlice';
 import Subtask from '../../Subtask';
 import AddButton from '../AddButton';
 
-interface IFormInput {
-  text: string
-  priority: string
-  description: string
-  preventDefault: () => void
-}
-
 const StyledForm = styled('form')<{onSubmit: any}>`
   display: flex;
   flex-direction: column;
@@ -49,7 +42,16 @@ const StyledGoalsBlock = styled('div')`
   }
 `;
 
-const ChangeTaskForm = (props:any) => {
+const ChangeTaskForm = (props: {
+  taskData: {
+    id: number
+    status: string
+    text: string
+    description: string
+    priority: string
+    subTasks: Array<{}>
+  }
+}) => {
 
   const dispatch = useDispatch()
 
@@ -81,12 +83,11 @@ const ChangeTaskForm = (props:any) => {
     }))
 
   };
-  const onError = (errors: any, e: any) => console.log(errors, e);
 
 
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit, onError)}>
+    <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="text">Change current task text</label>
         <input  {...register('text')} />
         <label htmlFor="priority">Select priority</label>

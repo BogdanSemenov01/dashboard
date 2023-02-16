@@ -1,14 +1,12 @@
 import React, { FC, useEffect } from 'react'
 import Section from './Section'
 import Flex from './styled/CommonStyledComponents'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../redux/store'
+import { RootState, useAppDispatch, useAppSelector } from '../redux/store'
 import { useParams } from 'react-router-dom'
 import Task from './Task'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { Project, setCurrentProjectId } from '../redux/projectsSlice'
-import AddButton from './common/AddButton'
 
 const blueCS = {
   border: 'rgb(38, 131, 182)',
@@ -28,8 +26,8 @@ const greenCS = {
 
 
 const TasksBoards: FC = () => {
-  const projects = useSelector((state: RootState) => state.projects.projects)
-  const dispatch = useDispatch()
+  const projects = useAppSelector((state: RootState) => state.projects.projects)
+  const dispatch = useAppDispatch()
   const projectId = useParams().id
   useEffect(() => {
     dispatch(setCurrentProjectId({projectId}))

@@ -12,7 +12,7 @@ const AppWrapper = styled.div`
   margin-top: 70px;
 `
 
-function App(): React.ReactNode {
+function App() {
   return  (
     <BrowserRouter>
       <AppWrapper>

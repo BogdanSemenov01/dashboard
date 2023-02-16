@@ -13,7 +13,7 @@ type StyledButtonProps = {
 
 type DeleteButtonProps = {
   section?: string
-  id: string | undefined
+  id?: string
   onClick: (event: React.MouseEvent) => void
 }
 

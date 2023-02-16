@@ -1,6 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import { ReactReduxContext } from 'react-redux'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 type State = {
   projects: Array<Project>
@@ -37,6 +35,7 @@ type Subtask = {
   text: string
   isComplete: boolean
 }
+
 
 const initialState: State = {
   projects: [
@@ -129,7 +128,7 @@ export const projectsSlice = createSlice({
   name: 'projects',
   initialState,
   reducers: {
-    createProject: (state, action) => {
+    createProject: (state, action: PayloadAction<{text: string}>) => {
       state.projects.push({
         title: action.payload.text,
         id: Date.now(),
@@ -140,16 +139,20 @@ export const projectsSlice = createSlice({
         }
       })
     },
-    deleteProject: (state, action) => {
+    deleteProject: (state, action: PayloadAction<{id: number}>) => {
       const index = state.projects.findIndex((p: Project) => p.id === +action.payload.id)
       if (index > -1) {
         state.projects.splice(index, 1)
       }
     },
-    setCurrentProjectId: (state, action) => {
+    setCurrentProjectId: (state, action: PayloadAction<{projectId: string | undefined}>) => {
       state.currentProjectId = Number(action.payload.projectId)
     },
-    changeTaskStatus: (state, action) => {
+    changeTaskStatus: (state, action: PayloadAction<{
+      currentStatus: string
+      id: number
+      nextStatus?: string
+    }>) => {
       state.projects.map((p: Project) => {
         if (p.id === state.currentProjectId) {
           const element = removeTaskFromCurrentStatus(p.tasks, action.payload.currentStatus, action.payload.id)
@@ -157,7 +160,11 @@ export const projectsSlice = createSlice({
         }
       })
     },
-    createNewTask: (state, action) => {
+    createNewTask: (state, action: PayloadAction<{
+      status: string
+      text: string
+
+    }>) => {
       let statusTask = selectSection(action.payload.status)
       let element: Task = {
         id: Date.now(),
@@ -172,7 +179,10 @@ export const projectsSlice = createSlice({
         }
       })
     },
-    deleteTask: (state, action) => {
+    deleteTask: (state, action: PayloadAction<{
+      section: string
+      taskId: number
+    }>) => {
       state.projects.map((p: Project) => {
         if (p.id === state.currentProjectId) {
           let section = selectSection(action.payload.section)
@@ -183,7 +193,14 @@ export const projectsSlice = createSlice({
         }
       })
     },
-    changeTask: (state, action) => {
+    changeTask: (state, action: PayloadAction<{
+      section: string
+      taskId: number
+      newText: string
+      newDescription: string
+      newPriority: "low" | "middle" | "high"
+      newSubTasks: Array<Subtask>
+    }>) => {
       state.projects.map((p: Project) => {
         if (p.id === state.currentProjectId) {
           let section = selectSection(action.payload.section)
@@ -214,7 +231,7 @@ export const {
 export default projectsSlice.reducer
 
 
-const pushTaskToNextStatus = (state: Tasks, element: Task, nextStatus: string): void => {
+const pushTaskToNextStatus = (state: Tasks, element: Task, nextStatus: string | undefined): void => {
   let section = selectSection(nextStatus)
   state[section].push(element)
 }
@@ -228,7 +245,7 @@ const removeTaskFromCurrentStatus = (state: Tasks, currentStatus: string, id: nu
 
 
 
-const selectSection = (status: string): 'queueTasks' | 'developmentTasks' | 'doneTasks' => {
+const selectSection = (status: string | undefined): 'queueTasks' | 'developmentTasks' | 'doneTasks' => {
   switch (status) {
     case 'Queue':
       return 'queueTasks'

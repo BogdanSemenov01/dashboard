@@ -4,8 +4,8 @@ import Flex from './styled/CommonStyledComponents';
 import { useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import { changeTaskStatus, createNewTask } from '../redux/projectsSlice';
-import { useParams } from 'react-router-dom';
 import AddButton from './common/AddButton';
+
 interface Props {
   title?: string,
   tasks?: object,
@@ -31,12 +31,11 @@ const SectionTitle = styled.div`
 
 const Section = (props: Props) => {
   const dispatch = useDispatch()
-  const projectId = useParams().id
 
   
   const [collectedProps, drop ] = useDrop(() => ({
     accept: 'task',
-    drop: (item:any) => {
+    drop: (item: {id: number, currentStatus: string, nextStatus: string, status: string}) => {
       dispatch(changeTaskStatus({id: item.id, currentStatus: item.status, nextStatus: props.title }))
   }
 }))

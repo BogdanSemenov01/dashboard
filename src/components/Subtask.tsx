@@ -1,4 +1,5 @@
 import React from 'react'
+import { UseFieldArrayRemove, UseFormRegister } from 'react-hook-form';
 import styled from 'styled-components';
 
 const StyledSubtaskWrapper = styled('div')`
@@ -24,12 +25,21 @@ const StyledSubTask = styled('div')`
   }
 `;
 
-const Subtask = (props: any) => {
+const Subtask = (props: {
+  subTasks: any
+  register: UseFormRegister<{
+    text: string;
+    description: string;
+    priority: any;
+    subTasks: any[];
+  }>
+  remove: UseFieldArrayRemove
+}) => {
 
   
   return (
     <StyledSubtaskWrapper>
-      {props.subTasks.map((s:any, index: number) => {
+      {props.subTasks.map((s: {id: number, text: string}, index: number) => {
         return <StyledSubTask key={s.id}>
           <input type="checkbox" {...props.register(`subTasks.${index}.isComplete`)}/>
             <span>{s.text}</span>

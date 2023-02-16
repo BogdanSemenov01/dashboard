@@ -1,7 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
-import { RootState } from '../redux/store'
+import { RootState, useAppDispatch, useAppSelector } from '../redux/store'
 import { Project, createProject, deleteProject } from '../redux/projectsSlice'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom'
@@ -61,8 +59,8 @@ const theme = {
 
 const ProjectsBoard = (): React.ReactElement => {
 
-  const projects = useSelector((state: RootState) => state.projects.projects)
-  const dispatch = useDispatch()
+  const projects = useAppSelector((state: RootState) => state.projects.projects)
+  const dispatch = useAppDispatch()
 
   const onClickDeleteProject = (event: any) => {
     dispatch(deleteProject({id: event.target.id}))
