@@ -36,8 +36,8 @@ const AddButton = (props: any) => {
   const onClickCreateNewTask = () => {
     setIsInput(true)
   }
+  const changeInputValue = (e: any) => {
 
-  const changeInputValue = (e:any) => {
     setInputValue(e.target.value)
   }
   const onEnterPressed = (e:any) => {

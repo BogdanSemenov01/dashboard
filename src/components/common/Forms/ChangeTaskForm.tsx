@@ -1,10 +1,10 @@
 import React from 'react'
-import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux';
+import { useFieldArray, useForm } from 'react-hook-form'
 import styled from 'styled-components';
 import { changeTask } from '../../../redux/projectsSlice';
 import Subtask from '../../Subtask';
 import AddButton from '../AddButton';
+import { useAppDispatch } from '../../../redux/store';
 
 const StyledForm = styled('form')<{onSubmit: any}>`
   display: flex;
@@ -24,7 +24,6 @@ const StyledForm = styled('form')<{onSubmit: any}>`
   }
   & > label {
     font-size: 20px;
-    /* margin: 15px 0; */
   }
   &>button {
     margin-top: 10%;
@@ -53,9 +52,10 @@ const ChangeTaskForm = (props: {
   }
 }) => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  
+
+
   const {register, control, handleSubmit } = useForm({
     defaultValues: {
       text: props.taskData.text,
@@ -72,7 +72,14 @@ const ChangeTaskForm = (props: {
     name: "subTasks"
   });
 
-  const onSubmit = (data:any, e: any) => {
+type Data = {
+  text: string, 
+  description: string, 
+  priority: 'low' | 'middle' | 'high', 
+  subTasks: Array<{id: number, text: string, isComplete: boolean}>
+}
+
+  const onSubmit = (data: any) => {
     dispatch(changeTask({
       taskId: props.taskData.id,
       section: props.taskData.status,

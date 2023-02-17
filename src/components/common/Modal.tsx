@@ -97,6 +97,7 @@ const StyledModalBody = styled.div`
   padding: 10px 20px;
 `;
 
+
 const Modal = (props: any) => {
   
   const {title, children} = props
