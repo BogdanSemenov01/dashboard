@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-type State = {
+export type State = {
   projects: Array<Project>
   currentProjectId: number
 }
@@ -151,7 +151,7 @@ export const projectsSlice = createSlice({
     changeTaskStatus: (state, action: PayloadAction<{
       currentStatus: string
       id: number
-      nextStatus?: string
+      nextStatus: string
     }>) => {
       state.projects.map((p: Project) => {
         if (p.id === state.currentProjectId) {
