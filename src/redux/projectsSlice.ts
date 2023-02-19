@@ -36,6 +36,15 @@ type Subtask = {
   isComplete: boolean
 }
 
+export type ActionPayloadChangeTask = {
+  section: string
+  taskId: number
+  newText: string
+  newDescription: string
+  newPriority: "low" | "middle" | "high"
+  newSubTasks: Array<Subtask>
+}
+
 
 const initialState: State = {
   projects: [
@@ -163,7 +172,6 @@ export const projectsSlice = createSlice({
     createNewTask: (state, action: PayloadAction<{
       status: string
       text: string
-
     }>) => {
       let statusTask = selectSection(action.payload.status)
       let element: Task = {
@@ -193,14 +201,7 @@ export const projectsSlice = createSlice({
         }
       })
     },
-    changeTask: (state, action: PayloadAction<{
-      section: string
-      taskId: number
-      newText: string
-      newDescription: string
-      newPriority: "low" | "middle" | "high"
-      newSubTasks: Array<Subtask>
-    }>) => {
+    changeTask: (state, action: PayloadAction<ActionPayloadChangeTask>) => {
       state.projects.map((p: Project) => {
         if (p.id === state.currentProjectId) {
           let section = selectSection(action.payload.section)

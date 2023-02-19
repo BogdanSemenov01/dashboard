@@ -1,7 +1,8 @@
-import projectReducer, { Project, State, changeTaskStatus, createProject, deleteProject, setCurrentProjectId } from "./projectsSlice"
+import projectReducer, { ActionPayloadChangeTask, Project, State, changeTask, changeTaskStatus, createNewTask, createProject, deleteProject, deleteTask, setCurrentProjectId } from "./projectsSlice"
 
-let initialState: State
+let initialState: State 
 beforeEach(()=> {
+
   initialState = {
     projects: [
       {
@@ -42,15 +43,15 @@ beforeEach(()=> {
               subTasks: [
                 { id: 1, text: 'dfdfdf', isComplete: false }
               ]
-             },
+            },
           ],
         }
       },
     ],
-    currentProjectId: 0,
+    currentProjectId: 1,
   }
 })
-
+  
 describe('createProject', () => { 
   test('should return initial state', () => { 
     expect(projectReducer(initialState, {type: undefined})).toEqual(initialState)
@@ -80,7 +81,7 @@ describe('deleteProject', () => {
   
     expect(projectReducer(initialState, deleteProject({id: 1}))).toEqual({
       projects: [],
-      currentProjectId: 0
+      currentProjectId: 1
     })
   })
   
@@ -202,4 +203,53 @@ describe('changeTaskStatus', () => {
       currentProjectId: 1
     })
     })
+ })
+
+describe('createNewTask', () => { 
+  test('should add new task', () => { 
+    expect(projectReducer(initialState, createNewTask({status: 'Queue', text: 'new task'})).projects[0].tasks.queueTasks).toHaveLength(2)
+   })
+ })
+
+ describe('deleteTask', () => { 
+  test('should delete task', () => { 
+    expect(projectReducer(initialState, deleteTask({taskId: 1, section: 'Queue'})).projects[0].tasks.queueTasks).toHaveLength(0)
+   })
+   test('should delete correct task', () => { 
+    expect(projectReducer(initialState, deleteTask({taskId: 10, section: 'Queue'}))).toEqual(initialState)
+    })
+  })
+
+describe('changeTask', () => { 
+  test('should change task', () => {
+    let actionPayloadMock: ActionPayloadChangeTask = {
+      section: 'Queue',
+      taskId: 1,
+      newText: 'New text',
+      newDescription: 'new desc',
+      newPriority: "middle",
+      newSubTasks: []
+    }
+    expect(projectReducer(initialState, changeTask(actionPayloadMock)).projects[0].tasks.queueTasks).toEqual([
+      {
+        id: 1,
+        text: 'New text',
+        description: 'new desc',
+        priority: 'middle',
+        subTasks: []
+      },
+    ],)
+  })
+  test('should change correct task', () => {
+    let actionPayloadMock: ActionPayloadChangeTask = {
+      section: 'Queue',
+      taskId: 10,
+      newText: 'New text',
+      newDescription: 'new desc',
+      newPriority: "middle",
+      newSubTasks: []
+    }
+    expect(projectReducer(initialState, changeTask(actionPayloadMock))).toEqual(initialState)
+  })
+
  })
