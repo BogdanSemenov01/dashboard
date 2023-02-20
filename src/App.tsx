@@ -5,6 +5,8 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import TasksBoards from './components/TasksBoards';
 import ErrorBoundary from './components/common/ErrorBoundary';
 import ModalProvider from './context/ModalContext/ModalContextProvider';
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -15,6 +17,7 @@ const AppWrapper = styled.div`
 function App() {
   return  (
     <BrowserRouter>
+    <Provider store={store}>
       <AppWrapper>
         <ModalProvider>
           <Routes>
@@ -26,6 +29,7 @@ function App() {
           </Routes>
         </ModalProvider>
       </AppWrapper>
+    </Provider>
     </BrowserRouter>
   );
 }
