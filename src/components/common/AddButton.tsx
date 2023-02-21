@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { createNewTask } from '../../redux/projectsSlice'
 import styled from 'styled-components';
+import { useAppDispatch } from '../../redux/store';
 
 const StyledButton = styled.button`
   background: ${props => props.theme.background};
@@ -30,7 +30,7 @@ const StyledInput = styled.input`
 
 const AddButton = (props: any) => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [inputValue, setInputValue] = useState('')
   const [isInput, setIsInput] = useState(false)
   const onClickCreateNewTask = () => {

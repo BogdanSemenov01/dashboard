@@ -94,7 +94,7 @@ type Data = {
 
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)}>
+    <StyledForm onSubmit={handleSubmit(onSubmit)} role='form'>
         <label htmlFor="text">Change current task text</label>
         <input  {...register('text')} />
         <label htmlFor="priority">Select priority</label>
@@ -110,7 +110,7 @@ type Data = {
         <Subtask subTasks={fields} register={register} remove={remove}/>
         <AddButton action={append}/>
       </StyledGoalsBlock>
-      <button>Accept</button>
+      <button role='submitButton'>Accept</button>
     </StyledForm>
   )
 }
