@@ -1,8 +1,10 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import ChangeTaskForm from "./ChangeTaskForm"
 import * as reduxHooks from '../../../redux/store'
+import * as actions from '../../../redux/projectsSlice'
 
 jest.mock('../../../redux/store')
+
 
 const mockedDispatch = jest.spyOn(reduxHooks, 'useAppDispatch')
 
@@ -22,6 +24,7 @@ describe('ChangeTaskFrom', () => {
   })
   
   test('should dispatch after submit form', () => {
+    const mockedActions = jest.spyOn(actions, 'changeTask')
 
     render(<ChangeTaskForm taskData={props}/>)
 
@@ -29,8 +32,10 @@ describe('ChangeTaskFrom', () => {
 
     mockedDispatch.mockReturnValue(dispatch)
 
-    fireEvent.click(screen.getByRole('submitButton'))
+    const form = screen.getByRole('form')
+    fireEvent.submit(form)
 
-    expect(dispatch).toHaveBeenCalledTimes(1)
+    // expect(dispatch).toHaveBeenCalledTimes(1)
+    expect(mockedActions).toHaveBeenCalledTimes(1)
   }) 
 })

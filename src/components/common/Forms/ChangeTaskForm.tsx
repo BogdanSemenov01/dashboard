@@ -88,7 +88,7 @@ type Data = {
       newPriority: data.priority,
       newSubTasks: data.subTasks
     }))
-
+   
   };
 
 

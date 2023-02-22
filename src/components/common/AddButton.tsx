@@ -65,7 +65,8 @@ const AddButton = (props: any) => {
       id={props.section}
       value={inputValue} 
       onChange={changeInputValue}
-      onKeyDown={onEnterPressed}/>) : 
+      onKeyDown={onEnterPressed}
+      />) : 
     (
       <StyledButton onClick={onClickCreateNewTask} theme={props.theme}>+</StyledButton>
     )
