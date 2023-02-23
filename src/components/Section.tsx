@@ -7,7 +7,7 @@ import { changeTaskStatus, createNewTask } from '../redux/projectsSlice';
 import AddButton from './common/AddButton';
 
 interface Props {
-  title?: string,
+  title: string,
   tasks?: object,
   colorSC: {
     border: string 

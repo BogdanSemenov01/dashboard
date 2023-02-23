@@ -79,7 +79,7 @@ type Data = {
   subTasks: Array<{id: number, text: string, isComplete: boolean}>
 }
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: any, event: any) => {
     dispatch(changeTask({
       taskId: props.taskData.id,
       section: props.taskData.status,
@@ -110,7 +110,7 @@ type Data = {
         <Subtask subTasks={fields} register={register} remove={remove}/>
         <AddButton action={append}/>
       </StyledGoalsBlock>
-      <button role='submitButton'>Accept</button>
+      <button role='SubmitButton'>Accept</button>
     </StyledForm>
   )
 }

@@ -24,18 +24,17 @@ describe('ChangeTaskFrom', () => {
   })
   
   test('should dispatch after submit form', () => {
-    const mockedActions = jest.spyOn(actions, 'changeTask')
-
-    render(<ChangeTaskForm taskData={props}/>)
 
     const dispatch = jest.fn() 
-
+    
     mockedDispatch.mockReturnValue(dispatch)
+
+    render(<ChangeTaskForm taskData={props}/>)
 
     const form = screen.getByRole('form')
     fireEvent.submit(form)
 
+    expect(dispatch).toHaveBeenCalledTimes(1)
     // expect(dispatch).toHaveBeenCalledTimes(1)
-    expect(mockedActions).toHaveBeenCalledTimes(1)
   }) 
 })

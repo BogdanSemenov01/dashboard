@@ -7,6 +7,7 @@ Object {
     <div>
       <form
         class="sc-eDvSVe brDfEL"
+        role="form"
       >
         <label
           for="text"
@@ -75,6 +76,7 @@ Object {
   "container": <div>
     <form
       class="sc-eDvSVe brDfEL"
+      role="form"
     >
       <label
         for="text"
