@@ -7,7 +7,6 @@ Object {
     <div>
       <form
         class="sc-eDvSVe brDfEL"
-        role="form"
       >
         <label
           for="text"
@@ -15,6 +14,7 @@ Object {
           Change current task text
         </label>
         <input
+          data-testid="text"
           name="text"
         />
         <label
@@ -23,6 +23,7 @@ Object {
           Select priority
         </label>
         <select
+          data-testid="priority"
           name="priority"
         >
           <option
@@ -47,6 +48,7 @@ Object {
           Change description
         </label>
         <textarea
+          data-testid="description"
           name="description"
           placeholder="Description"
         />
@@ -65,9 +67,7 @@ Object {
             +
           </button>
         </div>
-        <button
-          role="submitButton"
-        >
+        <button>
           Accept
         </button>
       </form>
@@ -76,7 +76,6 @@ Object {
   "container": <div>
     <form
       class="sc-eDvSVe brDfEL"
-      role="form"
     >
       <label
         for="text"
@@ -84,6 +83,7 @@ Object {
         Change current task text
       </label>
       <input
+        data-testid="text"
         name="text"
       />
       <label
@@ -92,6 +92,7 @@ Object {
         Select priority
       </label>
       <select
+        data-testid="priority"
         name="priority"
       >
         <option
@@ -116,6 +117,7 @@ Object {
         Change description
       </label>
       <textarea
+        data-testid="description"
         name="description"
         placeholder="Description"
       />
@@ -134,9 +136,7 @@ Object {
           +
         </button>
       </div>
-      <button
-        role="submitButton"
-      >
+      <button>
         Accept
       </button>
     </form>

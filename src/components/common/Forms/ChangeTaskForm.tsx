@@ -56,7 +56,7 @@ const ChangeTaskForm = (props: {
 
 
 
-  const {register, control, handleSubmit } = useForm({
+  const {register, control, handleSubmit, reset } = useForm({
     defaultValues: {
       text: props.taskData.text,
       description: props.taskData.description,
@@ -79,7 +79,7 @@ type Data = {
   subTasks: Array<{id: number, text: string, isComplete: boolean}>
 }
 
-  const onSubmit = (data: any, event: any) => {
+  const onSubmit = async (data: any, event: any) => {
     dispatch(changeTask({
       taskId: props.taskData.id,
       section: props.taskData.status,
@@ -88,29 +88,28 @@ type Data = {
       newPriority: data.priority,
       newSubTasks: data.subTasks
     }))
-   
   };
 
 
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)} role='form'>
+    <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="text">Change current task text</label>
-        <input  {...register('text')} />
+        <input  {...register('text')} data-testid='text'/>
         <label htmlFor="priority">Select priority</label>
-        <select {...register('priority')}>
+        <select {...register('priority')} data-testid='priority'>
           <option value="low">low</option>
           <option value="middle">middle</option>
           <option value="high">high</option>
         </select>
         <label htmlFor="description">Change description</label>
-        <textarea  {...register('description')} placeholder='Description'/>
+        <textarea  {...register('description')} placeholder='Description' data-testid='description'/>
       <StyledGoalsBlock>
         <p>Goals</p>
         <Subtask subTasks={fields} register={register} remove={remove}/>
         <AddButton action={append}/>
       </StyledGoalsBlock>
-      <button role='SubmitButton'>Accept</button>
+      <button>Accept</button>
     </StyledForm>
   )
 }
