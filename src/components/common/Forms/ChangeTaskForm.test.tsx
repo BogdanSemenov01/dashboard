@@ -76,4 +76,18 @@ describe("ChangeTaskFrom", () => {
       });
     });
   });
+
+  test("should add subtask after click button", async () => {
+    const dispatch = jest.fn();
+    mockedDispatch.mockReturnValue(dispatch);
+    render(<ChangeTaskForm taskData={props} />);
+    const button = screen.getByRole("button", { name: /\+/ });
+    fireEvent.click(button);
+    const input = screen.getByTestId("addButtonInput");
+    userEvent.type(input, "something");
+    userEvent.keyboard("{Enter}");
+    await waitFor(() => {
+      expect(screen.getAllByTestId("subtask")).toHaveLength(1);
+    });
+  });
 });

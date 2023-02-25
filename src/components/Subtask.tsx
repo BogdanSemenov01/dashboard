@@ -40,7 +40,7 @@ const Subtask = (props: {
   return (
     <StyledSubtaskWrapper>
       {props.subTasks.map((s: {id: number, text: string}, index: number) => {
-        return <StyledSubTask key={s.id}>
+        return <StyledSubTask key={s.id} data-testid='subtask'>
           <input type="checkbox" {...props.register(`subTasks.${index}.isComplete`)}/>
             <span>{s.text}</span>
               <div onClick={()=> props.remove(index)}>x</div>
