@@ -77,7 +77,7 @@ describe("ChangeTaskFrom", () => {
     });
   });
 
-  test("should add subtask after click button", async () => {
+  test("should add subtask with correct data", async () => {
     const dispatch = jest.fn();
     mockedDispatch.mockReturnValue(dispatch);
     render(<ChangeTaskForm taskData={props} />);
@@ -88,6 +88,9 @@ describe("ChangeTaskFrom", () => {
     userEvent.keyboard("{Enter}");
     await waitFor(() => {
       expect(screen.getAllByTestId("subtask")).toHaveLength(1);
+      expect(screen.getByTestId("subtask").innerHTML).toEqual('<input type=\"checkbox\" name=\"subTasks.0.isComplete\"><span>something</span><div>x</div>');
     });
   });
+
+
 });
