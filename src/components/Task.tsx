@@ -107,7 +107,7 @@ const ProgressBar = ({progressPercent}: any) => {
   </StyledProgressBar>
 }
 
-const Task: FC<TaskProps> = (props) => {
+const Task = (props: TaskProps) => {
 
   const completeSubtasks = props.subTasks.filter((t:any) => t.isComplete).length
   const allSubtasks = props.subTasks.length

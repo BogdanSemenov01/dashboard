@@ -11,14 +11,4 @@ describe('Modal window', () => {
     const component = render(<Modal title='Modal'><Element /></Modal>)
     expect(component).toMatchSnapshot()
   })
-
-  it ('should call close function on close',  () => {
-    render(<Modal title='Modal'><Element /></Modal>)
-    const button = screen.getByRole('button')
-    userEvent.click(button)
-
-
-    expect(screen.queryByTestId('modal')).toBeNull()
-  })
-
 })

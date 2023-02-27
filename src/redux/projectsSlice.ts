@@ -27,10 +27,10 @@ type Task = {
   text: string
   description: string
   priority: 'low' | 'middle' | 'high'
-  subTasks: Array<Subtask>
+  subTasks: Array<SubtaskType>
 }
 
-type Subtask = {
+export type SubtaskType = {
   id: number
   text: string
   isComplete: boolean
@@ -42,7 +42,7 @@ export type ActionPayloadChangeTask = {
   newText: string
   newDescription: string
   newPriority: "low" | "middle" | "high"
-  newSubTasks: Array<Subtask>
+  newSubTasks: Array<SubtaskType>
 }
 
 

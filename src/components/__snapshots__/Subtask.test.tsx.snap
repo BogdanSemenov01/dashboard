@@ -1,65 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Modal window should render modal window component 1`] = `
+exports[`Subtask should render subtask component 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
       <div
-        class="sc-bcXHqe jbUiCN"
-      >
-        <div
-          class="sc-gswNZR lhyzCb"
-          data-testid="modal"
-        >
-          <div
-            class="sc-dkrFOg jxUGFB"
-          >
-            <h3>
-              Modal
-            </h3>
-            <button>
-              x
-            </button>
-          </div>
-          <div
-            class="sc-hLBbgP iRXSkq"
-          >
-            <div>
-              Test
-            </div>
-          </div>
-        </div>
-      </div>
+        class="sc-bcXHqe cZnwtx"
+      />
     </div>
   </body>,
   "container": <div>
     <div
-      class="sc-bcXHqe jbUiCN"
-    >
-      <div
-        class="sc-gswNZR lhyzCb"
-        data-testid="modal"
-      >
-        <div
-          class="sc-dkrFOg jxUGFB"
-        >
-          <h3>
-            Modal
-          </h3>
-          <button>
-            x
-          </button>
-        </div>
-        <div
-          class="sc-hLBbgP iRXSkq"
-        >
-          <div>
-            Test
-          </div>
-        </div>
-      </div>
-    </div>
+      class="sc-bcXHqe cZnwtx"
+    />
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
