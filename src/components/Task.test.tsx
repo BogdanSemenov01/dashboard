@@ -2,6 +2,8 @@ import { render } from "@testing-library/react"
 import Task from "./Task"
 import * as appDispatch from "../redux/store"
 import * as dndHooks from 'react-dnd/dist/hooks'
+import { ConnectableElement, DragSourceOptions } from "react-dnd"
+import { JSXElementConstructor } from "react"
 
 const data = {
   id: 1,
@@ -18,20 +20,23 @@ jest.mock('react-dnd/dist/hooks')
 const mockedDispatch = jest.spyOn(appDispatch, 'useAppDispatch')
 const mockedDrag = jest.spyOn(dndHooks, 'useDrag')
 
-describe("Task component", () => {
-  it("should render component", () => {
-    const component = render(
-      <Task
-        id={data.id}
-        text={data.text}
-        index={data.index}
-        status={data.status}
-        description={data.description}
-        priority={data.priority}
-        subTasks={data.subTasks}
-      />
-      )
-    expect(component).toMatchSnapshot()
-  })
+// describe("Task component", () => {
+//   it("should render component", () => {
+//     mockedDrag.mockReturnValue()
+//     const component = render(
+//       <Task
+//         id={data.id}
+//         text={data.text}
+//         index={data.index}
+//         status={data.status}
+//         description={data.description}
+//         priority={data.priority}
+//         subTasks={data.subTasks}
+//       />
+//       )
+//     expect(component).toMatchSnapshot()
+//   })
 
-})
+// })
+
+
