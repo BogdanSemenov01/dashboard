@@ -22,7 +22,7 @@ const ModalProvider = ({children}: any) => {
 
   return (
     <ModalContext.Provider value={valueModalProvider}>
-      {isModalOpen && <Modal title={''} children={undefined} {...modalContent} />}
+      {isModalOpen && <Modal data-testid='modal' title={''} children={undefined} {...modalContent} />}
       {children}
     </ModalContext.Provider>
   )
