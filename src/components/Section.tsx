@@ -5,6 +5,7 @@ import { useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import { changeTaskStatus, createNewTask } from '../redux/projectsSlice';
 import AddButton from './common/AddButton';
+import { useAppDispatch } from '../redux/store';
 
 interface Props {
   title: string,
@@ -30,8 +31,7 @@ const SectionTitle = styled.div`
 `;
 
 const Section = (props: Props) => {
-  const dispatch = useDispatch()
-
+  const dispatch = useAppDispatch()
   
   const [collectedProps, drop ] = useDrop(() => ({
     accept: 'task',
